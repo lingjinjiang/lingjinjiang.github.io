@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>凌晋江的备忘录</title>
+  <title>k8s operator简介 | 凌晋江的备忘录</title>
   <meta name="author" content="ling jinjiang">
+  
+  <meta name="description" content="operator是对k8s的一种扩展，通过自定义资源CRD，实现将应用
+
+kubebuilder init –domain 初始化一个工程
+kubebuilder create api –group xxx –verion xxx –kind Xxxx 创建具体的资源
+修改type，定义自定义资源
+">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="k8s operator简介"/>
   <meta property="og:site_name" content="凌晋江的备忘录"/>
 
   
@@ -44,97 +51,7 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-  <article id="post-读书-用户建模" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-27T13:53:28.000Z"><a href="/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/">2021-12-27</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/">[读书]用户建模</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article id="post-读书-用户故事的INVEST原则" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-23T12:52:52.000Z"><a href="/2021/12/23/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%9A%84INVEST%E5%8E%9F%E5%88%99/">2021-12-23</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/23/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%9A%84INVEST%E5%8E%9F%E5%88%99/">[读书] 用户故事的INVEST原则</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>优秀的用户故事通常会包括INVEST六要素，具体为</p>
-<ul>
-<li><p><strong>I</strong>ndependent 独立</p>
-<p>  用户故事之间不应该相互依赖，否则会影响用户故事的优先级排序和工作计划的安排。应当将多个相关联的用户故事合并成一个。</p>
-</li>
-<li><p><strong>N</strong>egotiable 可讨论</p>
-<p>  用户故事不应该包含具体的细节，细节应有用户与开发者讨论来完成。细节也不需要太详细。</p>
-</li>
-<li><p><strong>V</strong>aluable to Purchasers or Users 对用户有价值</p>
-<p>  用户故事应该描述的是用户关系的内容，不应该包含特定的技术细节。</p>
-</li>
-<li><p><strong>E</strong>stimable 可估算</p>
-<p>  用户故事应当是可估算的，开发人员可以通过估算来判断大概的工作量。由于缺乏领域知识，开发人员可能难以估算。因此，在故事开始前，开发人员可以通过spike探针试验来了解故事的大致内容，之后再进行估算。</p>
-</li>
-<li><p><strong>S</strong>mall 足够小</p>
-<p>  用户故事要足够下才能够便于估算。Epic分为复合故事和复杂故事。  </p>
-<ul>
-<li>复合故事是由多个小故事组成，可以更加边界进行分割。  </li>
-<li>复杂故事通常大而且不易拆分，需要事前调研。</li>
-</ul>
-</li>
-<li><p><strong>T</strong>estable 可测试</p>
-<p>  用户故事必须可测，只有通过测试才能证明故事完成。然而并不是所有的故事都是可测的，通常是一些非功能性的用户故事，例如用户不需要等很久就能打开网页。此类故事的边界通村并不是十分明确，为了能够进行测试则需要对其中一些条件进行修改，例如用户能够在2s能打开网页。</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article id="post-k8s-operator简介" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-k8s-operator简介" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
@@ -144,7 +61,7 @@
       
       
   
-    <h1 class="title"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">k8s operator简介</a></h1>
+    <h1 class="p-name title" itemprop="headline name">k8s operator简介</h1>
   
 
     </header>
@@ -167,6 +84,29 @@
       
         
         
+  
+  <div class="tags">
+    <a href="/tags/k8s/">k8s</a>, <a href="/tags/operator/">operator</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -174,47 +114,27 @@
 </article>
 
 
+<section id="comment">
+  <h1 class="title">Comments</h1>
 
-
-  <article id="post-测试内容" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-12T13:45:31.000Z"><a href="/2021/12/12/%E6%B5%8B%E8%AF%95%E5%86%85%E5%AE%B9/">2021-12-12</a></time>
-      
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://example.com/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
-    <h1 class="title"><a href="/2021/12/12/%E6%B5%8B%E8%AF%95%E5%86%85%E5%AE%B9/">测试内容</a></h1>
-  
+</section>
 
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>测试内容，以此开始自己的记录</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav></div></div>
+</div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
   <form action="//google.com/search" method="get" accept-charset="utf-8">
