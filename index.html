@@ -34,7 +34,7 @@
 <nav id="main-nav" class="alignright">
   <ul>
     
-      <li><a href="/null">Home</a></li>
+      <li><a href="/">Home</a></li>
     
       <li><a href="/archives">Archives</a></li>
     
@@ -165,22 +165,19 @@
       
       
   
-    <h1 class="title"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">k8s operator简介</a></h1>
+    <h1 class="title"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">k8s operator简介 (一)</a></h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
         <p>operator是对k8s的一种扩展，通过自定义资源CRD，实现将应用</p>
-<ol>
-<li>kubebuilder init –domain 初始化一个工程</li>
-<li>kubebuilder create api –group xxx –verion xxx –kind Xxxx 创建具体的资源</li>
-<li>修改type，定义自定义资源</li>
-<li>修改controller，实现reconcile</li>
-</ol>
-<p>CRD<br>自定义资源，对k8s的扩展</p>
-<p>目录结构</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">├── api</span><br><span class="line">│   └── v1</span><br><span class="line">│       ├── groupversion_info.go</span><br><span class="line">│       ├── zookeeper_types.go        ---------- 定义yaml里的字段</span><br><span class="line">│       └── zz_generated.deepcopy.go</span><br><span class="line">├── bin</span><br><span class="line">│   └── controller-gen</span><br><span class="line">├── config</span><br><span class="line">│   ├── crd</span><br><span class="line">│   │   ├── kustomization.yaml</span><br><span class="line">│   │   ├── kustomizeconfig.yaml</span><br><span class="line">│   │   └── patches</span><br><span class="line">│   │       ├── cainjection_in_zookeepers.yaml</span><br><span class="line">│   │       └── webhook_in_zookeepers.yaml</span><br><span class="line">│   ├── default</span><br><span class="line">│   │   ├── kustomization.yaml</span><br><span class="line">│   │   ├── manager_auth_proxy_patch.yaml</span><br><span class="line">│   │   └── manager_config_patch.yaml</span><br><span class="line">│   ├── manager</span><br><span class="line">│   │   ├── controller_manager_config.yaml</span><br><span class="line">│   │   ├── kustomization.yaml</span><br><span class="line">│   │   └── manager.yaml</span><br><span class="line">│   ├── prometheus</span><br><span class="line">│   │   ├── kustomization.yaml</span><br><span class="line">│   │   └── monitor.yaml</span><br><span class="line">│   ├── rbac</span><br><span class="line">│   │   ├── auth_proxy_client_clusterrole.yaml</span><br><span class="line">│   │   ├── auth_proxy_role_binding.yaml</span><br><span class="line">│   │   ├── auth_proxy_role.yaml</span><br><span class="line">│   │   ├── auth_proxy_service.yaml</span><br><span class="line">│   │   ├── kustomization.yaml</span><br><span class="line">│   │   ├── leader_election_role_binding.yaml</span><br><span class="line">│   │   ├── leader_election_role.yaml</span><br><span class="line">│   │   ├── role_binding.yaml</span><br><span class="line">│   │   ├── service_account.yaml</span><br><span class="line">│   │   ├── zookeeper_editor_role.yaml</span><br><span class="line">│   │   └── zookeeper_viewer_role.yaml</span><br><span class="line">│   └── samples</span><br><span class="line">│       └── ling_v1_zookeeper.yaml</span><br><span class="line">├── controllers</span><br><span class="line">│   ├── suite_test.go</span><br><span class="line">│   └── zookeeper_controller.go   ------ controller功能，作reconcile</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── hack</span><br><span class="line">│   └── boilerplate.go.txt</span><br><span class="line">├── main.go</span><br><span class="line">├── Makefile</span><br><span class="line">└── PROJECT</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>对于k8s中每一种resource，都可以通过group、version、kind来识别。</p>
+<p>例如k8s中的基本的资源</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br></pre></td></tr></table></figure>
+
+<p>其中apiVersion包含了group和version的定义，apps为group，v1为version，deployment则为具体的kind</p>
+<p>通过GVK三种资源在一起，k8s就能够定为到具体所需要的资源。</p>
 
       
     </div>
