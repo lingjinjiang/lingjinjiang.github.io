@@ -45,6 +45,73 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-设计原则" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2022-10-19T13:02:48.000Z"><a href="/2022/10/19/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">2022-10-19</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2022/10/19/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">[读书]设计原则SOLID</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>SOLID原则的主要作用就是告诉我们如何将数据和函数组织成类，以及如何将这些类链接起来成为程序。</p>
+<ul>
+<li><p><strong>单一职责原则 SRP</strong></p>
+<blockquote>
+<p>任何一个<strong>软件模块</strong>都应该只对<strong>某一类行为者</strong>负责</p>
+</blockquote>
+<p>  此处的软件模块指的就是一组紧密相关的函数和数据结构，每个类都分别容纳了一组作用于相同作用域的函数，而在该作用域之外，它们各自的私有函数是互相不可见的。</p>
+</li>
+<li><p><strong>开闭原则 OCP</strong></p>
+<blockquote>
+<p>设计良好的计算机软件应该<strong>易于扩展</strong>，同时<strong>抗拒修改</strong></p>
+</blockquote>
+<p>  换句话说，就是在不需要修改的前提下就可以轻易扩展。<br>  所有组件之间的关系都是单项依赖，如果A组件不想被B组件上发生的修改所影响，那么就应该让B组件依赖于A。</p>
+</li>
+<li><p><strong>里氏替换原则 LSP</strong><br>  由Barbara Liskov在描述如何定义子类型时写下的</p>
+<blockquote>
+<p>这里需要的是一种可替换性：如果对于每个类型是S的对象o1都存在一个类型为T的对象o2，能使操作T类型的程序P在用o2替换o1时行为保持不变，我们就可以将S称为T的子类型。</p>
+</blockquote>
+</li>
+<li><p><strong>接口隔离原则 ISP</strong><br>  任何层次的软件设计如果以来不需要的东西，都会是有害的。从源码层次来说，这样的依赖关系会导致不必要的重新变异和重新部署。</p>
+</li>
+<li><p><strong>依赖反转原则 DIP</strong></p>
+<blockquote>
+<p>如果想要设计一个灵活的系统，在源代码层次的依赖关系中就应该多引用抽象类型而非具体实现。</p>
+</blockquote>
+<p>  在争取不修改接口的情况下为软件增加新的功能是软件设计的基础常识。要想在软件架构上追求稳定，就必须多使用稳定的抽象接口，少依赖多变的具体实现。</p>
+<ul>
+<li>应在代码中多使用抽象接口，尽量避免使用那些多变的具体实现类</li>
+<li>不要在具体实现类上创建衍生类</li>
+<li>不要覆盖（override）包含具体实现的函数</li>
+<li>应避免在代码中写入与任何具体是实现相关的名字，或者是其他容易变动的事物的名字。</li>
+</ul>
+<p>  控制流跨越架构编辑的方向与源代码依赖关系跨越边界的方向正好相反，源代码依赖方向永远是控制流方向的反转，这就是被称为i依赖反转的原因。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-编成范式" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -67,7 +134,20 @@
 <li>面向对象编程<br>面向对象编程对程序控制权的间接转移进行了限制和规范，利用多态性来限制用户对函数指针的使用。面向对象是封装、继承、多态的有机组合，任何支持面向对象的编程语言必须支持这三个特性。<ul>
 <li>封装<br>采用封装特性可以将一组关联的数据和函数圈起来，使圈外的代码只能看见部分函数。<br>这个特性并非面向对象语言独有，C语言在头文件中对数据结构和函数定义的前置声明，在程序文件中具体实现。而程序文件中的使用者是不可见的，使用者只能看到头文件中的部分。</li>
 <li>继承<br>继承的主要作用是让我们可以在某个作用域内对一组变量与函数进行覆盖。使用一些取巧的方式C语言也可以进行继承，当两个结构体的成员完全一致时，可以用强制类型转化来达到继承的效果。</li>
-<li>多态<br>多态本质上是对函数指针的一种应用，如C语言的STDIN可以通过指针指向不同的结构体来实现多态效果。使用多态能够通过依赖结构达到反转控制。<br>例如，ML1在接口上继承与I，方向上与HL1对ML1的控制流方法相反。这种方式弱化了模块间的依赖关于，可以修改某个模块的代码而不影响其他模块，这就是独立部署能力。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">    direction RL</span><br><span class="line">    I &lt;-- HL1</span><br><span class="line">    ML1 &lt;.. HL1</span><br><span class="line">    I &lt;|-- ML1</span><br><span class="line">    class HL1&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    class I &#123;</span><br><span class="line">        +F()</span><br><span class="line">    &#125;</span><br><span class="line">    &lt;&lt;interface&gt;&gt; I </span><br><span class="line">    class ML1&#123;</span><br><span class="line">        +F()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<li>多态<br>多态本质上是对函数指针的一种应用，如C语言的STDIN可以通过指针指向不同的结构体来实现多态效果。使用多态能够通过依赖结构达到反转控制。<br>例如，ML1在接口上继承与I，方向上与HL1对ML1的控制流方法相反。这种方式弱化了模块间的依赖关于，可以修改某个模块的代码而不影响其他模块，这就是独立部署能力。<pre class="mermaid">    classDiagram
+  direction RL
+  I <-- HL1
+  ML1 <.. HL1
+  I <|-- ML1
+  class HL1{
+  }
+  class I {
+      +F()
+  }
+  <<interface>> I 
+  class ML1{
+      +F()
+  }</pre>
 <br/></li>
 </ul>
 </li>
@@ -114,47 +194,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:JavaAgentExample.jar</span><br></pre></td></tr></table></figure>
 <p>此外还有一些其他的参数可以设置。</p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>一个使用java agent方式来实现<a target="_blank" rel="noopener" href="https://github.com/lingjinjiang/JavaAgentExample">在zookeeper日志中记录客户端请求包信息</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article id="post-准备做个工具" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2022-03-18T15:01:30.000Z"><a href="/2022/03/18/%E5%87%86%E5%A4%87%E5%81%9A%E4%B8%AA%E5%B7%A5%E5%85%B7/">2022-03-18</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2022/03/18/%E5%87%86%E5%A4%87%E5%81%9A%E4%B8%AA%E5%B7%A5%E5%85%B7/">准备做个工具</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>最近看了几本关于用户故事、海盗派测试、DDD的书，总的来说，无论从各个角度来看进行软件开发，少不了的都是要建模。对需求的理解程度决定了最终交付软件的质量。</p>
-<ul>
-<li>对于需求，只有通过模型才能理解用户的意图并最终转为用户故事</li>
-<li>对于开发，只有准确的模型才能让代码准确的实现功能</li>
-<li>对于测试，只有理解模型才能完善测试设计</li>
-</ul>
-<p>由于迭代任务要求测试覆盖率，团队的QA精力有限，无法保证所有的用例，于是就要求开发们能够承接一部分自动化用例的任务。理所当然的，开发们对写自动化用例这件事有一些排斥。</p>
-<p>于是和QA讨论了一下，我们的自动化用例很多基本上都是基于REST接口的，这些接口文档我们都已经能够通过swagger来生成。而我们的自动化用例基本上就是对这些接口的正常、异常的执行。所以可以尝试做一个基于swagger文件来生成用例的工具。</p>
-<p>在接下来的一段时间内，会结合学习的建模知识来制作这样的一个工具，既可以将学习的理论与实践结合，也可以简化用例的编写，一举两得～</p>
 
       
     </div>
@@ -381,11 +420,11 @@
   
     <li><a href="/tags/operator/">operator</a><small>1</small></li>
   
-    <li><a href="/tags/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">架构整洁之道</a><small>1</small></li>
+    <li><a href="/tags/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">架构整洁之道</a><small>2</small></li>
   
     <li><a href="/tags/%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E4%B8%8E%E6%95%8F%E6%8D%B7%E6%96%B9%E6%B3%95/">用户故事与敏捷方法</a><small>2</small></li>
   
-    <li><a href="/tags/%E8%AF%BB%E4%B9%A6/">读书</a><small>3</small></li>
+    <li><a href="/tags/%E8%AF%BB%E4%B9%A6/">读书</a><small>4</small></li>
   
   </ul>
 </div>
