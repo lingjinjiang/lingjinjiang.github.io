@@ -49,6 +49,55 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-读书-软件架构-2" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2022-10-29T14:10:44.000Z"><a href="/2022/10/29/%E8%AF%BB%E4%B9%A6-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84-2/">2022-10-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2022/10/29/%E8%AF%BB%E4%B9%A6-%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84-2/">[读书]软件架构(2)</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h2 id="边界划分"><a href="#边界划分" class="headerlink" title="边界划分"></a>边界划分</h2><p>软件架构设计本身就是一门划分边界的艺术。编辑的作用是将软件分割成个汇总元素，以便约束边界两侧之间的依赖关系。通过划清边界，我们可以推迟和延后一些细节性的决策。</p>
+<p>边界应该画在那些不相关的事情中间</p>
+<ul>
+<li>GUI与业务逻辑无关</li>
+<li>数据库与GUI无关</li>
+<li>数据库与业务逻辑无关</li>
+</ul>
+<p>I/O是无关紧要的，例如GUI可以用其他任何形式的节目代替，业务逻辑组件不需要了解这些细节。</p>
+<h3 id="插件式架构"><a href="#插件式架构" class="headerlink" title="插件式架构"></a>插件式架构</h3><p>系统的核心业务逻辑必须和其他组件保持独立，而这些其他组件要么可以去掉，要么有多种实现。</p>
+<p>用户界面在这个设计中是以插件形式存在，所以可以用插拔的方式切换很多不同类型的用户节目。数据库也类似，因为我们现在是将数据库作为插件来对待的，所以就可以被替换为不同类型的数据库。</p>
+<h2 id="边界剖析"><a href="#边界剖析" class="headerlink" title="边界剖析"></a>边界剖析</h2><p>跨边界调用是边界线的一侧的函数调用另一侧的函数，并同时传递数据的行为。</p>
+<p>最简单的跨边界调用形式，是有低层次的客户端来调用高层服务的函数，这种依赖关系在运行时和编译时会保持指向一致，都是从低层组件指向高层组件。</p>
+<p>当高层组件中的客户端要调用低层组件中的服务时，需要运用动态形式的多态来反转依赖，此时运行时的依赖关系与编译时的依赖关系就是相反的。</p>
+<p>系统架构中最强的边界形式就是<strong>服务</strong>，服务间的跨边界通信相对于函数调用来说，速度时非常缓慢的，通常要几十毫米到几秒不等。在划分边界时，要尽可能控制通信次数。</p>
+<h2 id="策略与层次"><a href="#策略与层次" class="headerlink" title="策略与层次"></a>策略与层次</h2><p>大型系统中，整体业务策略通常都可以被拆解为多组小的策略语句。一部分策略语句专门用于描述计算业务的业务逻辑，另一部分则负责描述计算报告的格式。软件架构设计的工作重点之一是，将这些策略彼此分离，再将它们按照变更的方式重新分组。一个设计良好的架构中，依赖关系的方向通常取决于它们所关联的组件层次。一般来说，低层组件被设计为依赖高层组件。</p>
+<p><strong>层次</strong>的定义严格按照“输入与输出之间的距离”来定义。一条策略离系统的输入/输出越远，所属的层次就越高，而直接管理输入/输出的策略在系统中的层次时最低的。</p>
+<p>通过将策略隔离，并让源码中的依赖方向都统一调整为指向高层策略，我们可以大幅度降低系统变更所带来的影响。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-读书-软件架构" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -593,7 +642,7 @@
   
     <li><a href="/categories/java/">java</a><small>1</small></li>
   
-    <li><a href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a><small>6</small></li>
+    <li><a href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a><small>7</small></li>
   
   </ul>
 </div>
@@ -608,9 +657,11 @@
   
     <li><a href="/tags/operator/">operator</a><small>1</small></li>
   
-    <li><a href="/tags/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">架构整洁之道</a><small>4</small></li>
+    <li><a href="/tags/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">架构整洁之道</a><small>5</small></li>
   
     <li><a href="/tags/%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E4%B8%8E%E6%95%8F%E6%8D%B7%E6%96%B9%E6%B3%95/">用户故事与敏捷方法</a><small>2</small></li>
+  
+    <li><a href="/tags/%E8%BE%B9%E7%95%8C%E5%88%92%E5%88%86/">边界划分</a><small>1</small></li>
   
   </ul>
 </div>
