@@ -49,6 +49,43 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-容器知识整理" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2023-03-19T12:55:00.000Z"><a href="/2023/03/19/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">2023-03-19</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2023/03/19/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">容器知识整理</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>现在常说的容器技术一般指的是docker。</p>
+<p>现有的容器技术基本上都是基于LXC即linux contaier，再进一步说是运用了linux namespace技术，将各个进行隔离开来，从而形成一个独立运行的程序空间，使彼此不被干扰。</p>
+<p>在使用上，容器技术现在包含镜像和容器两部分。</p>
+<p>镜像是容器技术的静态部分，将需要运行的程序和用于运行程序所需要的一些基础部分打包成一个整体。每当需要启动一个容器时，便从镜像中读取所需要的内容进行启动。容器是镜像的运行时状态，每当一个新的容器运行时，便将已有的镜像中的文件合并为一个基础文件系统，接着根据指定的运行命令来启动程序，通过namespace技术将运行进程间进行隔离，这样就形成了一个容器。</p>
+<p>镜像和容器的关系与传统意义上的程序和进程间的关系类似。镜像是静态的部分，用于保存一个稳定的运行环境，应用可以方便的部署和音韵学。容器是动态部分，可以根据需要进行启动。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-读书-软件架构-2" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -568,42 +605,11 @@
 
 
 
-  <article id="post-测试内容" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-12T13:45:31.000Z"><a href="/2021/12/12/%E6%B5%8B%E8%AF%95%E5%86%85%E5%AE%B9/">2021-12-12</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/12/%E6%B5%8B%E8%AF%95%E5%86%85%E5%AE%B9/">测试内容</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>测试内容，以此开始自己的记录</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
+  
+    <a href="/page/2/" class="alignright next">Next</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -671,7 +677,7 @@
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2022 Ling Jinjiang
+  &copy; 2023 Ling Jinjiang
   
 </div>
 <div class="clearfix"></div></footer>
