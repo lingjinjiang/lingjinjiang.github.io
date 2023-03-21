@@ -49,6 +49,101 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-容器知识整理——namespace" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2023-03-21T12:29:24.000Z"><a href="/2023/03/21/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E2%80%94%E2%80%94namespace/">2023-03-21</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2023/03/21/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E2%80%94%E2%80%94namespace/">容器知识整理—namespace</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>linux namespace的标准定义请参考 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/namespaces.7.html">https://man7.org/linux/man-pages/man7/namespaces.7.html</a></p>
+<p>linux namespace是一种将系统运行进程进行隔离的技术。每个通过这种方式，可以使不同的进程以相同的条件进行运行。例如进程需要以root权限运行，那么可以通过namespace技术为进行分配独立的user namespace，使每个进村拥有一个虚拟的root用户。</p>
+<p>linux namespace分为以下几类：</p>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Flag</th>
+<th>Isolates</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cgroup</td>
+<td>CLONE_NEWCGROUP</td>
+<td>Cgroup root directory</td>
+</tr>
+<tr>
+<td>IPC</td>
+<td>CLONE_NEWIPC</td>
+<td>System V IPC, POSIX message queues</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>CLONE_NEWNET</td>
+<td>Network devices, stacks, ports, etc.</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>CLONE_NEWNS</td>
+<td>Mount points</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>CLONE_NEWPID</td>
+<td>Process IDs</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>CLONE_NEWTIME</td>
+<td>Boot and monotonic clocks</td>
+</tr>
+<tr>
+<td>User</td>
+<td>CLONE_NEWUSER</td>
+<td>User and group IDs</td>
+</tr>
+<tr>
+<td>UTS</td>
+<td>CLONE_NEWUTS</td>
+<td>Hostname and NIS domain name</td>
+</tr>
+</tbody></table>
+<p>底层可以通过以下几个函数来设置namespace</p>
+<ul>
+<li><p>clone</p>
+</li>
+<li><p>setns</p>
+</li>
+<li><p>unshare</p>
+</li>
+<li><p>ioctl</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-容器知识整理" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -566,45 +661,6 @@
 
 
 
-  <article id="post-k8s-operator简介" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-19T12:39:34.000Z"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">2021-12-19</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">k8s operator简介 (一)</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>operator是对k8s的一种扩展，通过自定义资源CRD，实现将应用</p>
-<p>对于k8s中每一种resource，都可以通过group、version、kind来识别。</p>
-<p>例如k8s中的基本的资源</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br></pre></td></tr></table></figure>
-
-<p>其中apiVersion包含了group和version的定义，apps为group，v1为version，deployment则为具体的kind</p>
-<p>通过GVK三种资源在一起，k8s就能够定为到具体所需要的资源。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -661,7 +717,11 @@
   
     <li><a href="/tags/k8s/">k8s</a><small>1</small></li>
   
+    <li><a href="/tags/namespace/">namespace</a><small>1</small></li>
+  
     <li><a href="/tags/operator/">operator</a><small>1</small></li>
+  
+    <li><a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a><small>1</small></li>
   
     <li><a href="/tags/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93/">架构整洁之道</a><small>5</small></li>
   

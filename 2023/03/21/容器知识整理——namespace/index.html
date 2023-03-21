@@ -3,25 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>[读书]用户建模 | 凌晋江的备忘录</title>
+  <title>容器知识整理—namespace | 凌晋江的备忘录</title>
   <meta name="author" content="Ling Jinjiang">
   
-  <meta name="description" content="大部分项目小组只考虑单一的用户类型，这会导致忽略一些原本需要的一些用户类型。
-使用以下步骤来识别、选择有用的用户角色
-
-通过头脑风暴，列出初始的用户集合
-整理最初的角色集合，识别角色间的重叠部分
-整合角色
-从完全重叠的角色入手，合并或丢弃其中一个
-丢弃对系统成功不太重要的角色
-
-
-提炼角色
-通过角色">
+  <meta name="description" content="linux namespace的标准定义请参考 https://man7.org/linux/man-pages/man7/namespaces.7.html
+linux namespace是一种将系统运行进程进行隔离的技术。每个通过这种方式，可以使不同的进程以相同的条件进行运行。例如进程需要以ro">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="[读书]用户建模"/>
+  <meta property="og:title" content="容器知识整理—namespace"/>
   <meta property="og:site_name" content="凌晋江的备忘录"/>
 
   
@@ -61,58 +51,95 @@
 <div class="clearfix"></div>
 </header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-读书-用户建模" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article id="post-容器知识整理——namespace" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-27T13:53:28.000Z"><a href="/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/">2021-12-27</a></time>
+        <time class="dt-published" datetime="2023-03-21T12:29:24.000Z"><a href="/2023/03/21/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E2%80%94%E2%80%94namespace/">2023-03-21</a></time>
       
       
   
-    <h1 class="p-name title" itemprop="headline name">[读书]用户建模</h1>
+    <h1 class="p-name title" itemprop="headline name">容器知识整理—namespace</h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>大部分项目小组只考虑单一的用户类型，这会导致忽略一些原本需要的一些用户类型。</p>
-<p>使用以下步骤来识别、选择有用的用户角色</p>
+        <p>linux namespace的标准定义请参考 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man7/namespaces.7.html">https://man7.org/linux/man-pages/man7/namespaces.7.html</a></p>
+<p>linux namespace是一种将系统运行进程进行隔离的技术。每个通过这种方式，可以使不同的进程以相同的条件进行运行。例如进程需要以root权限运行，那么可以通过namespace技术为进行分配独立的user namespace，使每个进村拥有一个虚拟的root用户。</p>
+<p>linux namespace分为以下几类：</p>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Flag</th>
+<th>Isolates</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cgroup</td>
+<td>CLONE_NEWCGROUP</td>
+<td>Cgroup root directory</td>
+</tr>
+<tr>
+<td>IPC</td>
+<td>CLONE_NEWIPC</td>
+<td>System V IPC, POSIX message queues</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>CLONE_NEWNET</td>
+<td>Network devices, stacks, ports, etc.</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>CLONE_NEWNS</td>
+<td>Mount points</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>CLONE_NEWPID</td>
+<td>Process IDs</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>CLONE_NEWTIME</td>
+<td>Boot and monotonic clocks</td>
+</tr>
+<tr>
+<td>User</td>
+<td>CLONE_NEWUSER</td>
+<td>User and group IDs</td>
+</tr>
+<tr>
+<td>UTS</td>
+<td>CLONE_NEWUTS</td>
+<td>Hostname and NIS domain name</td>
+</tr>
+</tbody></table>
+<p>底层可以通过以下几个函数来设置namespace</p>
 <ul>
-<li>通过头脑风暴，列出初始的用户集合</li>
-<li>整理最初的角色集合，识别角色间的重叠部分</li>
-<li>整合角色<ul>
-<li>从完全重叠的角色入手，合并或丢弃其中一个</li>
-<li>丢弃对系统成功不太重要的角色</li>
-</ul>
+<li><p>clone</p>
 </li>
-<li>提炼角色<ul>
-<li>通过角色的特征来建立角色的模型</li>
-</ul>
+<li><p>setns</p>
+</li>
+<li><p>unshare</p>
+</li>
+<li><p>ioctl</p>
 </li>
 </ul>
-<p>除上述之外，还有两种额外技术</p>
-<ul>
-<li>虚拟人物</li>
-<li>极端人物，如毒贩、教皇等</li>
-</ul>
-<p>通过对角色定义相关的特征，能够更清楚的看到不同角色的不同点。</p>
 
       
     </div>
     <footer>
       
         
-  
-  <div class="categories">
-    <a href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a>
-  </div>
-
         
   
   <div class="tags">
-    <a href="/tags/%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E4%B8%8E%E6%95%8F%E6%8D%B7%E6%96%B9%E6%B3%95/">用户故事与敏捷方法</a>
+    <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>, <a href="/tags/namespace/">namespace</a>
   </div>
 
         
@@ -155,7 +182,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="https://lingjinjiang.github.io/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="https://lingjinjiang.github.io/2023/03/21/%E5%AE%B9%E5%99%A8%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E2%80%94%E2%80%94namespace/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>
