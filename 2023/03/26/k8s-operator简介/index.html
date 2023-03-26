@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>k8s operator简介 (一) | 凌晋江的备忘录</title>
+  <title>k8s operator简介 | 凌晋江的备忘录</title>
   <meta name="author" content="Ling Jinjiang">
   
-  <meta name="description" content="operator是对k8s的一种扩展，通过自定义资源CRD，实现将应用
-对于k8s中每一种resource，都可以通过group、version、kind来识别。
+  <meta name="description" content="k8s允许用户创建属于自己的资源，被成为CustomResourceDefinition(CRD)。每一种资源，都可以通过group、version、kind来识别三座标来进行定义。
 例如k8s中的基本的资源
 12apiVersion: apps/v1kind: Deployment
 
-其中apiVersion包含了g">
+其中apiV">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="k8s operator简介 (一)"/>
+  <meta property="og:title" content="k8s operator简介"/>
   <meta property="og:site_name" content="凌晋江的备忘录"/>
 
   
@@ -61,23 +60,32 @@
     <header>
       
         <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-19T12:39:34.000Z"><a href="/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/">2021-12-19</a></time>
+        <time class="dt-published" datetime="2023-03-26T12:39:34.000Z"><a href="/2023/03/26/k8s-operator%E7%AE%80%E4%BB%8B/">2023-03-26</a></time>
       
       
   
-    <h1 class="p-name title" itemprop="headline name">k8s operator简介 (一)</h1>
+    <h1 class="p-name title" itemprop="headline name">k8s operator简介</h1>
   
 
     </header>
     <div class="e-content entry" itemprop="articleBody">
       
-        <p>operator是对k8s的一种扩展，通过自定义资源CRD，实现将应用</p>
-<p>对于k8s中每一种resource，都可以通过group、version、kind来识别。</p>
+        <p>k8s允许用户创建属于自己的资源，被成为CustomResourceDefinition(CRD)。每一种资源，都可以通过group、version、kind来识别三座标来进行定义。</p>
 <p>例如k8s中的基本的资源</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br></pre></td></tr></table></figure>
 
 <p>其中apiVersion包含了group和version的定义，apps为group，v1为version，deployment则为具体的kind</p>
-<p>通过GVK三种资源在一起，k8s就能够定为到具体所需要的资源。</p>
+<p>在定义创建了资源CRD之后，我们就可以创建创建自己的资源了。</p>
+<p>然而仅仅定义了资源，还不能让k8s来为我们工作。因此k8s提供了operator机制来帮助处理CRD的业务逻辑。</p>
+<p>operator有两部分功能</p>
+<ol>
+<li><p>reconcile</p>
+<p> reconcile是operator功能的核心逻辑，其主要功能就是处理CRD发生变动时的自定义逻辑。例如Prometheus Operator定义了名为Promtheus的CRD。当创建一个Prometheus资源后，其Operator会对应的部署一个Promtheus服务，而删除资源时则会对应的卸载Promtheus服务。</p>
+<p> reconcile本质上就是利用informer机制，创建了一个针对CRD监听器来处理对应的也业务逻辑。</p>
+</li>
+<li><p>webhook<br> reconcile提供的是资源创建后的业务逻辑，然而有些时候，我们希望在创建资源前就进行一些业务逻辑的校验，以此来控制资源是否能创建或者对一些特定字段进行控制。对此，k8s提供了MutatingWebhook和ValidatingWebhhook来作一些前置控制，当不满足校验时，可以让CRD创建失败。需要注意的时，Webhook必须使用https。</p>
+</li>
+</ol>
 
       
     </div>
@@ -130,7 +138,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="https://lingjinjiang.github.io/2021/12/19/k8s-operator%E7%AE%80%E4%BB%8B/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="https://lingjinjiang.github.io/2023/03/26/k8s-operator%E7%AE%80%E4%BB%8B/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>

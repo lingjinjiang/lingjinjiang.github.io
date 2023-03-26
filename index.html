@@ -49,6 +49,54 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-k8s-operator简介" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2023-03-26T12:39:34.000Z"><a href="/2023/03/26/k8s-operator%E7%AE%80%E4%BB%8B/">2023-03-26</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2023/03/26/k8s-operator%E7%AE%80%E4%BB%8B/">k8s operator简介</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <p>k8s允许用户创建属于自己的资源，被成为CustomResourceDefinition(CRD)。每一种资源，都可以通过group、version、kind来识别三座标来进行定义。</p>
+<p>例如k8s中的基本的资源</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br></pre></td></tr></table></figure>
+
+<p>其中apiVersion包含了group和version的定义，apps为group，v1为version，deployment则为具体的kind</p>
+<p>在定义创建了资源CRD之后，我们就可以创建创建自己的资源了。</p>
+<p>然而仅仅定义了资源，还不能让k8s来为我们工作。因此k8s提供了operator机制来帮助处理CRD的业务逻辑。</p>
+<p>operator有两部分功能</p>
+<ol>
+<li><p>reconcile</p>
+<p> reconcile是operator功能的核心逻辑，其主要功能就是处理CRD发生变动时的自定义逻辑。例如Prometheus Operator定义了名为Promtheus的CRD。当创建一个Prometheus资源后，其Operator会对应的部署一个Promtheus服务，而删除资源时则会对应的卸载Promtheus服务。</p>
+<p> reconcile本质上就是利用informer机制，创建了一个针对CRD监听器来处理对应的也业务逻辑。</p>
+</li>
+<li><p>webhook<br> reconcile提供的是资源创建后的业务逻辑，然而有些时候，我们希望在创建资源前就进行一些业务逻辑的校验，以此来控制资源是否能创建或者对一些特定字段进行控制。对此，k8s提供了MutatingWebhook和ValidatingWebhhook来作一些前置控制，当不满足校验时，可以让CRD创建失败。需要注意的时，Webhook必须使用https。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-容器知识整理——namespace" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -588,63 +636,6 @@
 <li>极端人物，如毒贩、教皇等</li>
 </ul>
 <p>通过对角色定义相关的特征，能够更清楚的看到不同角色的不同点。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article id="post-读书-用户故事的INVEST原则" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-23T12:52:52.000Z"><a href="/2021/12/23/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%9A%84INVEST%E5%8E%9F%E5%88%99/">2021-12-23</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/23/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%9A%84INVEST%E5%8E%9F%E5%88%99/">[读书] 用户故事的INVEST原则</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>优秀的用户故事通常会包括INVEST六要素，具体为</p>
-<ul>
-<li><p><strong>I</strong>ndependent 独立</p>
-<p>  用户故事之间不应该相互依赖，否则会影响用户故事的优先级排序和工作计划的安排。应当将多个相关联的用户故事合并成一个。</p>
-</li>
-<li><p><strong>N</strong>egotiable 可讨论</p>
-<p>  用户故事不应该包含具体的细节，细节应有用户与开发者讨论来完成。细节也不需要太详细。</p>
-</li>
-<li><p><strong>V</strong>aluable to Purchasers or Users 对用户有价值</p>
-<p>  用户故事应该描述的是用户关系的内容，不应该包含特定的技术细节。</p>
-</li>
-<li><p><strong>E</strong>stimable 可估算</p>
-<p>  用户故事应当是可估算的，开发人员可以通过估算来判断大概的工作量。由于缺乏领域知识，开发人员可能难以估算。因此，在故事开始前，开发人员可以通过spike探针试验来了解故事的大致内容，之后再进行估算。</p>
-</li>
-<li><p><strong>S</strong>mall 足够小</p>
-<p>  用户故事要足够下才能够便于估算。Epic分为复合故事和复杂故事。  </p>
-<ul>
-<li>复合故事是由多个小故事组成，可以更加边界进行分割。  </li>
-<li>复杂故事通常大而且不易拆分，需要事前调研。</li>
-</ul>
-</li>
-<li><p><strong>T</strong>estable 可测试</p>
-<p>  用户故事必须可测，只有通过测试才能证明故事完成。然而并不是所有的故事都是可测的，通常是一些非功能性的用户故事，例如用户不需要等很久就能打开网页。此类故事的边界通村并不是十分明确，为了能够进行测试则需要对其中一些条件进行修改，例如用户能够在2s能打开网页。</p>
-</li>
-</ul>
 
       
     </div>
