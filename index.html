@@ -49,6 +49,43 @@
 </header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
+  <article id="post-如何制作一个Operator" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time class="dt-published" datetime="2023-06-18T11:16:30.000Z"><a href="/2023/06/18/%E5%A6%82%E4%BD%95%E5%88%B6%E4%BD%9C%E4%B8%80%E4%B8%AAOperator/">2023-06-18</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2023/06/18/%E5%A6%82%E4%BD%95%E5%88%B6%E4%BD%9C%E4%B8%80%E4%B8%AAOperator/">如何制作一个Operator</a></h1>
+  
+
+    </header>
+    <div class="e-content entry" itemprop="articleBody">
+      
+        <h1 id="什么是Operator"><a href="#什么是Operator" class="headerlink" title="什么是Operator"></a>什么是Operator</h1><p>k8s中每种可以创建的东西都是一种资源，例如Deployment、ConfigMap、Pod等等。每种类型的资源在k8s中都有一个对应的控制器(Controller)来处理这些资源的生命周期事件，也就是增删改。</p>
+<p>虽然内置的基础资源已经能满足几乎所有的业务场景，但基础资源无法很直观的体现业务信息。所以k8s提供了自定义资源(Custom Resource)来扩展能力，用户可以用直观的领域语言来完成在k8s中部署自己想要的服务。</p>
+<p>前面提到每种资源都要有一个对应Controller，那CR肯定也不例外。所以用户需要自己创建一个Controller，来将CR中的领域知识语言转变k8s的基础能力。这种CR + Controller的模式就是Operator模式</p>
+<h1 id="如何制作Operator"><a href="#如何制作Operator" class="headerlink" title="如何制作Operator"></a>如何制作Operator</h1><p>上面提到Operator需要有CR和Controller，接下来将分别介绍这两个部分。</p>
+<h2 id="Custom-Resource"><a href="#Custom-Resource" class="headerlink" title="Custom Resource"></a>Custom Resource</h2><h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><p>本节以Golang为例，介绍如何编写一个Controller</p>
+<h3 id="定义资源"><a href="#定义资源" class="headerlink" title="定义资源"></a>定义资源</h3><h3 id="创建客户端"><a href="#创建客户端" class="headerlink" title="创建客户端"></a>创建客户端</h3><h3 id="创建一个Informer"><a href="#创建一个Informer" class="headerlink" title="创建一个Informer"></a>创建一个Informer</h3><h3 id="创建事件处理器"><a href="#创建事件处理器" class="headerlink" title="创建事件处理器"></a>创建事件处理器</h3><h1 id="通过Helm打包"><a href="#通过Helm打包" class="headerlink" title="通过Helm打包"></a>通过Helm打包</h1>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
   <article id="post-k8s-operator简介" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
   <div class="post-content">
@@ -599,59 +636,6 @@
 
 
 
-  <article id="post-读书-用户建模" class="h-entry post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time class="dt-published" datetime="2021-12-27T13:53:28.000Z"><a href="/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/">2021-12-27</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2021/12/27/%E8%AF%BB%E4%B9%A6-%E7%94%A8%E6%88%B7%E5%BB%BA%E6%A8%A1/">[读书]用户建模</a></h1>
-  
-
-    </header>
-    <div class="e-content entry" itemprop="articleBody">
-      
-        <p>大部分项目小组只考虑单一的用户类型，这会导致忽略一些原本需要的一些用户类型。</p>
-<p>使用以下步骤来识别、选择有用的用户角色</p>
-<ul>
-<li>通过头脑风暴，列出初始的用户集合</li>
-<li>整理最初的角色集合，识别角色间的重叠部分</li>
-<li>整合角色<ul>
-<li>从完全重叠的角色入手，合并或丢弃其中一个</li>
-<li>丢弃对系统成功不太重要的角色</li>
-</ul>
-</li>
-<li>提炼角色<ul>
-<li>通过角色的特征来建立角色的模型</li>
-</ul>
-</li>
-</ul>
-<p>除上述之外，还有两种额外技术</p>
-<ul>
-<li>虚拟人物</li>
-<li>极端人物，如毒贩、教皇等</li>
-</ul>
-<p>通过对角色定义相关的特征，能够更清楚的看到不同角色的不同点。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -706,11 +690,11 @@
   <h3 class="title">Tags</h3>
   <ul class="entry">
   
-    <li><a href="/tags/k8s/">k8s</a><small>1</small></li>
+    <li><a href="/tags/k8s/">k8s</a><small>2</small></li>
   
     <li><a href="/tags/namespace/">namespace</a><small>1</small></li>
   
-    <li><a href="/tags/operator/">operator</a><small>1</small></li>
+    <li><a href="/tags/operator/">operator</a><small>2</small></li>
   
     <li><a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a><small>1</small></li>
   
